@@ -69,21 +69,4 @@ export const fetchOW16 = (city) => {
     }
 }
 
-//
-
-export const searchPlace = (placeName) => {
-    let place = placeName.replace(' ', '%20');
-    let url = `http://maps.googleapis.com/maps/api/geocode/json?address=${place}`
-    return dispatch => {
-        return Axios.get(url)
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-}
-
-
 export default openWeatherAction;

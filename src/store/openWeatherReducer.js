@@ -16,7 +16,7 @@ const OpenWeatherReducer = (state = initialState, action) => {
             return {
                 ...state,
                 owData5Days: action.payload
-            };
+            }
         case SET_OWFC16DAYS:
             return {
                 ...state,

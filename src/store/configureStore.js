@@ -3,9 +3,11 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
 import openWeatherReducer from './openWeatherReducer';
+import weatherCheckReducer from './weatherCheckReducer';
 
 const reducers = combineReducers({
-    openWeatherReducer
+    openWeatherReducer,
+    weatherCheckReducer
 });
 
 const middlewares = applyMiddleware(thunk);

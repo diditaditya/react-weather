@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchPlace } from '../store/openWeatherAction';
+import { searchPlace, checkWeather } from '../store/weatherCheckAction';
 
 class WeatherCheck extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            place: ''
+            place: '',
+            locations: [],
+            weathers: []
         };
         this.style = {
             inputFormStyle: {
@@ -42,7 +44,15 @@ class WeatherCheck extends React.Component {
         });
     }
 
+    search() {
+        this.props.search(this.state.place);
+        this.setState({
+            place: ''
+        });
+    }
+
     render() {
+        console.log(this.props);
         let minDate = this.convertDate(this.today);
         let maxDate = this.convertDate(this.maxDate);
         return (
@@ -58,17 +68,25 @@ class WeatherCheck extends React.Component {
     componentDidMount() {
     }
 
-    search() {
-        this.props.search(this.state.place);
+    componentDidUpdate() {
 
     }
 
+    
+}
+
+const mapStateToProps = (state) => {
+    return ({
+        locations: state.weatherCheckReducer.locations,
+        weathers: state.weatherCheckReducer.weathers
+    });
 }
 
 const mapDispatchToProps = (dispatch) => {
     return ({
-        search: (place) => dispatch(searchPlace(place))
+        search: (place) => dispatch(searchPlace(place)),
+        checkWeather: (coordinate) => dispatch(checkWeather(coordinate))
     });
 }
 
-export default connect(null, mapDispatchToProps)(WeatherCheck);
+export default connect(mapStateToProps, mapDispatchToProps)(WeatherCheck);
