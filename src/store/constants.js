@@ -1,0 +1,5 @@
+export const SET_OWFC5DAYS = 'SET_OWFC5DAYS';
+export const SET_OWFC16DAYS = 'SET_OWFC16DAYS';
+export const SET_CITY = 'SET_CITY';
+export const SET_SEARCH_CITY = 'SET_SEARCH_CITY';
+export const SET_FETCH_STATUS = 'SET_FETCH_STATUS';
