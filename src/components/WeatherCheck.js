@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { searchPlace, checkWeather } from '../store/weatherCheckAction';
+import { searchPlace, fetchWeather, saveWeathers, clearCheckedWeathers } from '../store/weatherCheckAction';
+import CheckedList from './CheckedList';
 
 class WeatherCheck extends React.Component {
 
@@ -9,8 +10,12 @@ class WeatherCheck extends React.Component {
         super(props);
         this.state = {
             place: '',
-            locations: [],
-            weathers: []
+            date: '',
+            time: '',
+            checkedWeathers: [],
+            savedWeathers: [],
+            listTitle: '',
+            message: ''
         };
         this.style = {
             inputFormStyle: {
@@ -38,29 +43,88 @@ class WeatherCheck extends React.Component {
         return `${year}-${month}-${date}`;
     }
 
-    onHandleChange(place) {
+    placeHandleChange(place) {
         this.setState({
             place: place
         });
     }
 
+    dateHandleChange(date) {
+        this.setState({
+            date: date
+        });
+    }
+
     search() {
-        this.props.search(this.state.place);
+        let data = {
+            place: this.state.place,
+            date: this.state.date,
+            time: this.state.time
+        };
+        this.props.search(data);
         this.setState({
             place: ''
         });
     }
 
+    listTitleHandleChange(title) {
+        this.setState({
+            listTitle: title
+        });
+    }
+
+    saveList() {
+        if(this.state.listTitle.length > 0) {
+            if(this.props.checkedWeathers.length > 0) {
+                let data = {};
+                data.title = this.state.listTitle;
+                data.createdAt = new Date();
+                data.weathers = this.props.checkedWeathers;
+                console.log(data);
+                this.props.saveWeathers(data);
+                this.props.clearList();
+                this.setState({
+                    listTitle: '',
+                    message: '',
+                    date: ''
+                });
+            } else {
+                this.setState({
+                    message: 'The list is empty'
+                });
+            }
+        } else {
+            this.setState({
+                message: 'Title is required'
+            });
+        }
+    }
+
+    clearList() {
+        this.props.clearList();
+    }
+
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         let minDate = this.convertDate(this.today);
         let maxDate = this.convertDate(this.maxDate);
         return (
-            <div>
-                <input value={this.state.place} onChange={ (e) => this.onHandleChange(e.target.value)} type="text" placeholder="City name" style={this.style.inputFormStyle} />
-                <input type="date" min={minDate} max={maxDate}  style={this.style.inputFormStyle}/>
-                <input type="time" style={this.style.inputFormStyle}/>
-                <button onClick={ () => this.search() }  className="btn btn-danger">Check!</button>
+            <div className="container" style={{marginTop: 25}}>
+                <h3>Daily Weather Checker</h3>
+                <input value={this.state.place} onChange={ (e) => this.placeHandleChange(e.target.value)} type="text" placeholder="City name" style={this.style.inputFormStyle} />
+                <input value={this.state.date} onChange={ (e) => this.dateHandleChange(e.target.value)} type="date" min={minDate} max={maxDate}  style={this.style.inputFormStyle}/>
+                {/*<input type="time" style={this.style.inputFormStyle}/>*/}
+                <button onClick={ () => this.search() }  className="btn btn-primary">Check and Add to List!</button>
+                <hr/>
+                <CheckedList/>
+                <hr/>
+                <div className="container">
+                    <input value={this.state.listTitle} onChange={ (e) => this.listTitleHandleChange(e.target.value)} type="text" placeholder="Title" style={this.style.inputFormStyle}/>
+                    <button onClick={()=> this.saveList()} className="btn btn-primary" >Save List</button>
+                    <span> </span>
+                    <button onClick={()=> this.clearList()} className="btn btn-danger" >Clear List</button>
+                    <p>{ this.state.message }</p>
+                </div>
             </div>
         );
     }
@@ -77,15 +141,17 @@ class WeatherCheck extends React.Component {
 
 const mapStateToProps = (state) => {
     return ({
-        locations: state.weatherCheckReducer.locations,
-        weathers: state.weatherCheckReducer.weathers
+        checkedWeathers: state.weatherCheckReducer.checkedWeathers,
+        savedWeathers: state.weatherCheckReducer.savedWeathers
     });
 }
 
 const mapDispatchToProps = (dispatch) => {
     return ({
-        search: (place) => dispatch(searchPlace(place)),
-        checkWeather: (coordinate) => dispatch(checkWeather(coordinate))
+        search: (placeTime) => dispatch(searchPlace(placeTime)),
+        checkWeather: (coordinate) => dispatch(fetchWeather(coordinate)),
+        clearList: () => dispatch(clearCheckedWeathers()),
+        saveWeathers: (data) => dispatch(saveWeathers(data))
     });
 }
 

@@ -3,6 +3,7 @@ import {Route, Link} from 'react-router-dom';
 
 import WeatherList from './WeatherList';
 import WeatherCheck from './WeatherCheck';
+import SavedWeathers from './SavedWeathers';
 
 class ViewBody extends React.Component {
 
@@ -13,11 +14,13 @@ class ViewBody extends React.Component {
                     <Link to="/"><button className="btn btn-primary">3-Hourly</button></Link>
                     <span> </span>
                     <Link to="/daily"><button className="btn btn-primary">Daily</button></Link>
-                    <Link to="/weatherchecker"><button className="btn btn-warning" style={{float:'right'}} >Weather Checker</button></Link>
+                    <Link to="/weatherchecker"><button className="btn btn-warning" style={{float:'right', marginLeft: 5}} >Daily Weather Checker</button></Link>
+                    <Link to="/savedweathers"><button className="btn btn-warning" style={{float:'right'}} >Saved Weathers</button></Link>
                 </div>
                 
                 <Route path="/" component={WeatherList} />
                 <Route path="/weatherchecker" component={WeatherCheck} />
+                <Route path="/savedweathers" component={SavedWeathers} />
             </div>
         );
     }

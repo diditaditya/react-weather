@@ -1,30 +1,74 @@
 import Axios from 'axios';
 
-import { SET_WEATHERCHECK_LOCATIONS, SET_WEATHERCHECK_WEATHER } from './constants';
+import store from './configureStore';
+import { SET_WEATHERCHECK_LOCATIONS, SET_WEATHERCHECK_WEATHER, ADD_CHECKED_WEATHERS, SAVE_WEATHER, FILL_SAVED_WEATHERS, CLEAR_CHECKED_WEATHERS, DELETE_SAVED_WEATHER, DELETE_SAVED_WEATHER_SUCCESS } from './constants';
 
-export const fetchLocation = (response) => {
+export const setLocation = (response) => {
     return {
         type: SET_WEATHERCHECK_LOCATIONS,
         payload: response
     }
 }
 
-export const fetchWeather = (response) => {
+export const setWeather = (response) => {
     return {
         type: SET_WEATHERCHECK_WEATHER,
         payload: response
     }
 }
 
-export const checkWeather = (coord) => {
-    console.log('in checkweather');
-    let lat = coord.lat;
-    let lon = coord.lng;
-    console.log(lat);
-    console.log(lon);
-    let url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`
+export const fillSavedWeathers = (data) => {
+    console.log('filling saved weathers');
+    console.log(data);
+    return {
+            type: FILL_SAVED_WEATHERS,
+            payload: data
+        }
+}
+
+export const deleteSavedWeatherSuccess = (id) => {
+    let savedWeathers = (store.getState()).weatherCheckReducer.savedWeathers;
+    let indexToBeDeleted;
+    savedWeathers.map((weather, index) => {
+        if(weather.id === id) {
+            indexToBeDeleted = index
+        }
+    });
+    return {
+        type: DELETE_SAVED_WEATHER_SUCCESS,
+        payload: index
+    }
+}
+
+export const addCheckedWeathers = (data) => {
+    console.log('in addCheckedWeather action');
+    return {
+        type: ADD_CHECKED_WEATHERS,
+        payload: data
+    }
+}
+
+export const clearCheckedWeathers = () => {
+    console.log('in addCheckedWeather action');
+    return {
+        type: CLEAR_CHECKED_WEATHERS,
+    }
+}
+
+export const setSaveWeathers = (data) => {
+    return {
+        type: SAVE_WEATHER,
+        payload: data
+    }
+}
+
+export const saveWeathers = (data) => {
+    console.log('in saveweather action');
+    console.log(data);
+    let port = 4000;
+    let url = `http://localhost:${port}/savedWeathers`;
     return dispatch => {
-        return Axios.get(url)
+        return Axios.post(url, data)
             .then((response) => {
                 console.log(response.data);
             })
@@ -32,22 +76,82 @@ export const checkWeather = (coord) => {
                 console.log(err);
             });
     }
+    
 }
 
-export const searchPlace = (placeName) => {
+export const fetchSavedWeathers = () => {
+    let port = 4000;
+    let url = `http://localhost:${port}/savedWeathers`;
+    console.log('in fetchsavedweathers')
+    Axios.get(url)
+            .then((response) => {
+                console.log(response.data);
+                store.dispatch(fillSavedWeathers(response.data));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    
+}
+
+export const deleteSavedWeather = (id) => {
+    console.log('in deletesavedweather');
+    let port = 4000;
+    let url = `http://localhost:${port}/savedWeathers/${id}`;
+    return dispatch => {
+        console.log('in deletesavedweather dispatch')
+        return Axios.delete(url)
+            .then((response) => {
+                dispatch(deleteSavedWeather(id))
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+}
+
+
+
+
+
+
+export const fetchWeather = (data) => {
+    console.log('in fetchweather');
+    let lat = data.coordinate.lat;
+    let lon = data.coordinate.lng;
+    // let urlHourly = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`
+    let urlDaily = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=16&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`;
+    return dispatch => {
+        return Axios.get(urlDaily)
+            .then((response) => {
+                // data.weathers = response.data.list;
+                let index = Math.round((new Date(data.date) - new Date())/(60*60*24*1000));
+                data.weather = response.data.list[index];
+                dispatch(addCheckedWeathers(data))
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+}
+
+export const searchPlace = (placeTime) => {
     console.log('in searchPlace');
-    let place = placeName.replace(' ', '%20');
+    let place = placeTime.place.replace(' ', '%20');
     let url = `http://maps.googleapis.com/maps/api/geocode/json?address=${place}`
     return dispatch => {
         return Axios.get(url)
         .then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             let data = {
-                name: response.data.results[0].formatted_address,
+                name: placeTime.place,
+                date: placeTime.date,
+                time: placeTime.time,
+                address: response.data.results[0].formatted_address,
                 coordinate: response.data.results[0].geometry.location
             }
-            // dispatch(fetchLocation(data));
-            dispatch(checkWeather(data.coordinate));
+            // dispatch(setLocation(data));
+            dispatch(fetchWeather(data));
         })
         .catch((err) => {
             console.log(err);

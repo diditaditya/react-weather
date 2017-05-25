@@ -1,9 +1,81 @@
 {
-  "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "profile": { "name": "typicode" }
+  "savedWeathers": [
+    {
+      "title": "Soematra",
+      "createdAt": "2017-05-25T08:39:42.315Z",
+      "weathers": [
+        {
+          "name": "Palembang",
+          "date": "2017-05-26",
+          "time": "",
+          "address": "Palembang, Palembang City, South Sumatra, Indonesia",
+          "coordinate": {
+            "lat": -2.9760735,
+            "lng": 104.7754307
+          },
+          "weather": {
+            "dt": 1495771200,
+            "temp": {
+              "day": 31.6,
+              "min": 25.53,
+              "max": 33.42,
+              "night": 28.95,
+              "eve": 33.42,
+              "morn": 25.53
+            },
+            "pressure": 1021.48,
+            "humidity": 69,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 2.46,
+            "deg": 154,
+            "clouds": 44,
+            "rain": 0.48
+          }
+        },
+        {
+          "name": "Bandar lampung",
+          "date": "2017-05-27",
+          "time": "",
+          "address": "Bandar Lampung, Bandar Lampung City, Lampung, Indonesia",
+          "coordinate": {
+            "lat": -5.3971396,
+            "lng": 105.2667887
+          },
+          "weather": {
+            "dt": 1495857600,
+            "temp": {
+              "day": 31.19,
+              "min": 22.81,
+              "max": 31.53,
+              "night": 25.21,
+              "eve": 28.56,
+              "morn": 22.81
+            },
+            "pressure": 997.67,
+            "humidity": 63,
+            "weather": [
+              {
+                "id": 501,
+                "main": "Rain",
+                "description": "moderate rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 1.37,
+            "deg": 156,
+            "clouds": 24,
+            "rain": 5.4
+          }
+        }
+      ],
+      "id": 1
+    }
+  ]
 }
