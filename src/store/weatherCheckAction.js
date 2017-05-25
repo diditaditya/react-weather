@@ -27,6 +27,7 @@ export const fillSavedWeathers = (data) => {
 }
 
 export const deleteSavedWeatherSuccess = (id) => {
+    console.log('in savedweathersuccess action');
     let savedWeathers = (store.getState()).weatherCheckReducer.savedWeathers;
     let indexToBeDeleted;
     savedWeathers.map((weather, index) => {
@@ -34,9 +35,10 @@ export const deleteSavedWeatherSuccess = (id) => {
             indexToBeDeleted = index
         }
     });
+    console.log('index: ', indexToBeDeleted);
     return {
         type: DELETE_SAVED_WEATHER_SUCCESS,
-        payload: index
+        payload: indexToBeDeleted
     }
 }
 
@@ -98,16 +100,14 @@ export const deleteSavedWeather = (id) => {
     console.log('in deletesavedweather');
     let port = 4000;
     let url = `http://localhost:${port}/savedWeathers/${id}`;
-    return dispatch => {
-        console.log('in deletesavedweather dispatch')
-        return Axios.delete(url)
+    Axios.delete(url)
             .then((response) => {
-                dispatch(deleteSavedWeather(id))
+                store.dispatch(deleteSavedWeatherSuccess(id))
             })
             .catch((err) => {
                 console.log(err);
             });
-    }
+    
 }
 
 

@@ -45,7 +45,7 @@ class SavedWeathers extends React.Component {
                                 { this.props.savedWeathers.map((saved, index) => {
                                     return (
                                         <tr key={index}>
-                                            <td>{saved.id}</td>
+                                            <td>{index +1}</td>
                                             <td className="text-capitalize">{saved.title}</td>
                                             <td>{ this.convertDate(saved.createdAt) }</td>
                                             <td>

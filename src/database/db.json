@@ -1,65 +1,30 @@
 {
   "savedWeathers": [
     {
-      "title": "Soematra",
-      "createdAt": "2017-05-25T08:39:42.315Z",
+      "title": "Eastjav",
+      "createdAt": "2017-05-25T09:48:41.077Z",
       "weathers": [
         {
-          "name": "Palembang",
+          "name": "Malang",
           "date": "2017-05-26",
           "time": "",
-          "address": "Palembang, Palembang City, South Sumatra, Indonesia",
+          "address": "Malang, Malang City, East Java, Indonesia",
           "coordinate": {
-            "lat": -2.9760735,
-            "lng": 104.7754307
+            "lat": -7.9666204,
+            "lng": 112.6326321
           },
           "weather": {
             "dt": 1495771200,
             "temp": {
-              "day": 31.6,
-              "min": 25.53,
-              "max": 33.42,
-              "night": 28.95,
-              "eve": 33.42,
-              "morn": 25.53
+              "day": 30.55,
+              "min": 21.13,
+              "max": 30.55,
+              "night": 22.8,
+              "eve": 26.27,
+              "morn": 21.13
             },
-            "pressure": 1021.48,
-            "humidity": 69,
-            "weather": [
-              {
-                "id": 500,
-                "main": "Rain",
-                "description": "light rain",
-                "icon": "10d"
-              }
-            ],
-            "speed": 2.46,
-            "deg": 154,
-            "clouds": 44,
-            "rain": 0.48
-          }
-        },
-        {
-          "name": "Bandar lampung",
-          "date": "2017-05-27",
-          "time": "",
-          "address": "Bandar Lampung, Bandar Lampung City, Lampung, Indonesia",
-          "coordinate": {
-            "lat": -5.3971396,
-            "lng": 105.2667887
-          },
-          "weather": {
-            "dt": 1495857600,
-            "temp": {
-              "day": 31.19,
-              "min": 22.81,
-              "max": 31.53,
-              "night": 25.21,
-              "eve": 28.56,
-              "morn": 22.81
-            },
-            "pressure": 997.67,
-            "humidity": 63,
+            "pressure": 946.75,
+            "humidity": 50,
             "weather": [
               {
                 "id": 501,
@@ -68,14 +33,119 @@
                 "icon": "10d"
               }
             ],
-            "speed": 1.37,
-            "deg": 156,
+            "speed": 0.76,
+            "deg": 21,
+            "clouds": 0,
+            "rain": 4.64
+          }
+        },
+        {
+          "name": "Lumajang",
+          "date": "2017-05-27",
+          "time": "",
+          "address": "Lumajang Regency, East Java, Indonesia",
+          "coordinate": {
+            "lat": -8.0943571,
+            "lng": 113.1441558
+          },
+          "weather": {
+            "dt": 1495857600,
+            "temp": {
+              "day": 29.19,
+              "min": 24.36,
+              "max": 29.19,
+              "night": 24.96,
+              "eve": 26.96,
+              "morn": 24.36
+            },
+            "pressure": 987.21,
+            "humidity": 83,
+            "weather": [
+              {
+                "id": 501,
+                "main": "Rain",
+                "description": "moderate rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 1.12,
+            "deg": 162,
             "clouds": 24,
-            "rain": 5.4
+            "rain": 3.05
+          }
+        },
+        {
+          "name": "Lumajang",
+          "date": "2017-05-28",
+          "time": "",
+          "address": "Lumajang Regency, East Java, Indonesia",
+          "coordinate": {
+            "lat": -8.0943571,
+            "lng": 113.1441558
+          },
+          "weather": {
+            "dt": 1495944000,
+            "temp": {
+              "day": 28.86,
+              "min": 24.88,
+              "max": 28.86,
+              "night": 24.88,
+              "eve": 26.33,
+              "morn": 25.54
+            },
+            "pressure": 988.02,
+            "humidity": 0,
+            "weather": [
+              {
+                "id": 501,
+                "main": "Rain",
+                "description": "moderate rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 1.96,
+            "deg": 122,
+            "clouds": 23,
+            "rain": 4.11
+          }
+        },
+        {
+          "name": "Surabaya",
+          "date": "2017-05-29",
+          "time": "",
+          "address": "Surabaya, Surabaya City, East Java, Indonesia",
+          "coordinate": {
+            "lat": -7.2574719,
+            "lng": 112.7520883
+          },
+          "weather": {
+            "dt": 1496030400,
+            "temp": {
+              "day": 29.22,
+              "min": 27.26,
+              "max": 29.22,
+              "night": 27.26,
+              "eve": 28.32,
+              "morn": 27.76
+            },
+            "pressure": 1013.36,
+            "humidity": 0,
+            "weather": [
+              {
+                "id": 501,
+                "main": "Rain",
+                "description": "moderate rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 0.33,
+            "deg": 280,
+            "clouds": 36,
+            "rain": 6.94
           }
         }
       ],
-      "id": 1
+      "id": 2
     }
   ]
 }
