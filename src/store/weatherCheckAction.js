@@ -1,7 +1,17 @@
 import Axios from 'axios';
 
 import store from './configureStore';
-import { SET_WEATHERCHECK_LOCATIONS, SET_WEATHERCHECK_WEATHER, ADD_CHECKED_WEATHERS, SAVE_WEATHER, FILL_SAVED_WEATHERS, CLEAR_CHECKED_WEATHERS, DELETE_SAVED_WEATHER, DELETE_SAVED_WEATHER_SUCCESS } from './constants';
+import { SET_WEATHERCHECK_LOCATIONS, 
+    SET_WEATHERCHECK_WEATHER, 
+    ADD_CHECKED_WEATHERS, 
+    SAVE_WEATHER, 
+    FILL_SAVED_WEATHERS, 
+    CLEAR_CHECKED_WEATHERS,
+    DELETE_CHECKED_WEATHER, 
+    DELETE_SAVED_WEATHER, 
+    DELETE_SAVED_WEATHER_SUCCESS,
+    DELETE_WEATHER_IN_DETAIL,
+    DELETE_WEATHER_IN_DETAIL_SUCCESS } from './constants';
 
 export const setLocation = (response) => {
     return {
@@ -57,10 +67,36 @@ export const clearCheckedWeathers = () => {
     }
 }
 
+export const deleteCheckedWeather = (index) => {
+    return {
+        type: DELETE_CHECKED_WEATHER,
+        payload: index
+    }
+}
+
 export const setSaveWeathers = (data) => {
     return {
         type: SAVE_WEATHER,
         payload: data
+    }
+}
+
+export const deleteWeatherInDetailSuccess = (data) => {
+    console.log('in deleteWeatherInDetailSuccess')
+    let savedWeathers = (store.getState()).weatherCheckReducer.savedWeathers;
+    let indexToBeUpdated;
+    savedWeathers.map((weather, index) => {
+        if(Number(weather.id) === Number(data.id)) {
+            indexToBeUpdated = index
+        }
+    });
+    console.log('indexToBeUpdated: ', indexToBeUpdated);
+    console.log('original savedWeathers: ', savedWeathers[indexToBeUpdated]);
+    savedWeathers[indexToBeUpdated].weathers.splice(data.index, 1);
+    console.log('updated savedWeathers: ', savedWeathers[indexToBeUpdated]);
+    return {
+        type: DELETE_WEATHER_IN_DETAIL_SUCCESS,
+        payload: savedWeathers
     }
 }
 
@@ -107,9 +143,37 @@ export const deleteSavedWeather = (id) => {
             .catch((err) => {
                 console.log(err);
             });
-    
 }
 
+export const deleteWeatherInDetail = (data) => {
+    console.log('in deleteWeatherInDetail action');
+    let port = 4000;
+    let url = `http://localhost:${port}/savedWeathers/${data.id}`;
+    Axios.get(url)
+            .then((response) => {
+                console.log('in deleteWeatherInDetail first axios')
+                console.log(response.data);
+                response.data.weathers.splice(data.index, 1);
+                let newData = {
+                    createdAt: response.data.createdAt,
+                    id: response.data.id,
+                    title: response.data.title,
+                    weathers: response.data.weathers
+                };
+                Axios.put(url, newData)
+                        .then((response) => {
+                            console.log('in deleteWeatherInDetail second axios')
+                            store.dispatch(deleteWeatherInDetailSuccess(data));
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+}
 
 
 

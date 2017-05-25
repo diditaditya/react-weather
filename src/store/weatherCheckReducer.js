@@ -1,4 +1,14 @@
-import { SET_WEATHERCHECK_LOCATIONS, SET_WEATHERCHECK_WEATHER, ADD_CHECKED_WEATHERS, SAVE_WEATHER, FILL_SAVED_WEATHERS, CLEAR_CHECKED_WEATHERS, DELETE_SAVED_WEATHER_SUCCESS } from './constants';
+import { SET_WEATHERCHECK_LOCATIONS, 
+    SET_WEATHERCHECK_WEATHER, 
+    ADD_CHECKED_WEATHERS, 
+    SAVE_WEATHER, 
+    FILL_SAVED_WEATHERS, 
+    CLEAR_CHECKED_WEATHERS,
+    DELETE_CHECKED_WEATHER, 
+    DELETE_SAVED_WEATHER, 
+    DELETE_SAVED_WEATHER_SUCCESS,
+    DELETE_WEATHER_IN_DETAIL,
+    DELETE_WEATHER_IN_DETAIL_SUCCESS } from './constants';
 
 const initialState = {
     locations: [],
@@ -19,6 +29,12 @@ const WeatherCheckReducer = (state = initialState, action) => {
                 ...state,
                 checkedWeathers: []
             }
+        case DELETE_CHECKED_WEATHER:
+            state.checkedWeathers.splice(action.payload, 1);
+            return {
+                ...state, 
+                checkedWeathers: [...state.checkedWeathers]
+            }
         case SAVE_WEATHER:
             return {
                 ...state,
@@ -30,6 +46,12 @@ const WeatherCheckReducer = (state = initialState, action) => {
             return {
                 ...state, 
                 savedWeathers: [...state.savedWeathers]
+            }
+        case DELETE_WEATHER_IN_DETAIL_SUCCESS:
+            console.log('in deleteWeatherInDetail reducer!');
+            return {
+                ...state,
+                savedWeathers: [...action.payload]
             }
         case SET_WEATHERCHECK_LOCATIONS:
             return {

@@ -1,7 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { deleteCheckedWeather } from '../store/weatherCheckAction';
+
 class CheckedList extends React.Component {
+
+    delete(index) {
+        if(window.confirm('Do you want to delete it?')) {
+            this.props.deleteCheckedWeather(index);
+        }
+    }
 
     render() {
 
@@ -17,6 +25,7 @@ class CheckedList extends React.Component {
                                     <th>Location</th>
                                     <th>Date</th>
                                     <th>Forecast</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,6 +36,9 @@ class CheckedList extends React.Component {
                                             <td className="text-capitalize">{checked.name}</td>
                                             <td>{checked.date}</td>
                                             <td>{checked.weather.weather[0].description}</td>
+                                            <td>
+                                                <button onClick={this.delete.bind(this, index)} className="btn btn-danger">Delete</button>
+                                            </td>
                                         </tr>
                                     );
                                 }) }
@@ -61,4 +73,10 @@ const mapStateToProps = (state) => {
     });
 }
 
-export default connect(mapStateToProps, null)(CheckedList);
+const mapDispatchtoProps = (dispatch) => {
+    return ({
+        deleteCheckedWeather: (index) => dispatch(deleteCheckedWeather(index))
+    });
+}
+
+export default connect(mapStateToProps, mapDispatchtoProps)(CheckedList);

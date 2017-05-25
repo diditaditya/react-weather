@@ -223,65 +223,72 @@
       "id": 3
     },
     {
-      "title": "Random",
-      "createdAt": "2017-05-25T11:54:23.432Z",
+      "createdAt": "2017-05-25T12:58:23.680Z",
+      "id": 5,
+      "title": "Dalam Kota",
       "weathers": [
         {
-          "name": "Semarang",
+          "name": "cempaka mas",
           "date": "2017-05-27",
           "time": "",
-          "address": "Semarang, Semarang City, Central Java, Indonesia",
+          "address": "Jl. Letjen Suprapto, Cempaka Baru, Kemayoran, RW.8, Sumur Batu, Kemayoran, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10640, Indonesia",
           "coordinate": {
-            "lat": -7.0051453,
-            "lng": 110.4381254
+            "lat": -6.165012,
+            "lng": 106.8778207
+          },
+          "weather": {
+            "dt": 1495771200,
+            "temp": {
+              "day": 29.25,
+              "min": 26.62,
+              "max": 30.7,
+              "night": 28.45,
+              "eve": 30.57,
+              "morn": 26.76
+            },
+            "pressure": 1022.13,
+            "humidity": 90,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "sky is clear",
+                "icon": "01d"
+              }
+            ],
+            "speed": 1.31,
+            "deg": 197,
+            "clouds": 0
+          }
+        }
+      ]
+    },
+    {
+      "createdAt": "2017-05-25T13:44:53.614Z",
+      "id": 6,
+      "title": "Keliling Kota",
+      "weathers": [
+        {
+          "name": "kebayoran baru",
+          "date": "2017-05-28",
+          "time": "",
+          "address": "Kebayoran Baru, South Jakarta City, Jakarta, Indonesia",
+          "coordinate": {
+            "lat": -6.2436219,
+            "lng": 106.8001396
           },
           "weather": {
             "dt": 1495857600,
             "temp": {
-              "day": 27.47,
-              "min": 22.16,
-              "max": 27.98,
-              "night": 22.76,
-              "eve": 27.41,
-              "morn": 22.16
+              "day": 30.17,
+              "min": 28.16,
+              "max": 30.68,
+              "night": 28.16,
+              "eve": 30.31,
+              "morn": 28.31
             },
-            "pressure": 975.62,
-            "humidity": 87,
-            "weather": [
-              {
-                "id": 501,
-                "main": "Rain",
-                "description": "moderate rain",
-                "icon": "10d"
-              }
-            ],
-            "speed": 1.57,
-            "deg": 161,
-            "clouds": 56,
-            "rain": 11.81
-          }
-        },
-        {
-          "name": "Labuan Bajo",
-          "date": "2017-05-27",
-          "time": "",
-          "address": "Labuan Bajo, Komodo, West Manggarai Regency, East Nusa Tenggara, Indonesia",
-          "coordinate": {
-            "lat": -8.453848400000002,
-            "lng": 119.8728421
-          },
-          "weather": {
-            "dt": 1495854000,
-            "temp": {
-              "day": 27.42,
-              "min": 25.51,
-              "max": 28.33,
-              "night": 25.96,
-              "eve": 27.76,
-              "morn": 25.51
-            },
-            "pressure": 1001.56,
-            "humidity": 94,
+            "pressure": 1022.31,
+            "humidity": 86,
             "weather": [
               {
                 "id": 500,
@@ -291,47 +298,117 @@
               }
             ],
             "speed": 0.77,
-            "deg": 194,
-            "clouds": 92,
-            "rain": 1.62
+            "deg": 118,
+            "clouds": 32,
+            "rain": 1.05
           }
         },
         {
-          "name": "Flores",
-          "date": "2017-05-30",
+          "name": "kelapa gading",
+          "date": "2017-05-28",
           "time": "",
-          "address": "Flores Department, Uruguay",
+          "address": "Kelapa Gading, North Jakarta City, Jakarta, Indonesia",
           "coordinate": {
-            "lat": -33.5169429,
-            "lng": -56.8984566
+            "lat": -6.1604549,
+            "lng": 106.9054618
           },
           "weather": {
-            "dt": 1496156400,
+            "dt": 1495857600,
             "temp": {
-              "day": 16.21,
-              "min": 8.82,
-              "max": 16.21,
-              "night": 8.82,
-              "eve": 11.16,
-              "morn": 11.07
+              "day": 30.17,
+              "min": 28.16,
+              "max": 30.68,
+              "night": 28.16,
+              "eve": 30.31,
+              "morn": 28.31
             },
-            "pressure": 1031.85,
-            "humidity": 0,
+            "pressure": 1022.31,
+            "humidity": 86,
             "weather": [
               {
-                "id": 800,
-                "main": "Clear",
-                "description": "sky is clear",
-                "icon": "01d"
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
               }
             ],
-            "speed": 4.64,
-            "deg": 125,
-            "clouds": 0
+            "speed": 0.77,
+            "deg": 118,
+            "clouds": 32,
+            "rain": 1.05
+          }
+        },
+        {
+          "name": "cawang",
+          "date": "2017-05-28",
+          "time": "",
+          "address": "Cawang, Kramatjati, East Jakarta City, Jakarta, Indonesia",
+          "coordinate": {
+            "lat": -6.2490679,
+            "lng": 106.8679899
+          },
+          "weather": {
+            "dt": 1495857600,
+            "temp": {
+              "day": 30.17,
+              "min": 28.16,
+              "max": 30.68,
+              "night": 28.16,
+              "eve": 30.31,
+              "morn": 28.31
+            },
+            "pressure": 1022.31,
+            "humidity": 86,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 0.77,
+            "deg": 118,
+            "clouds": 32,
+            "rain": 1.05
+          }
+        },
+        {
+          "name": "cilandak",
+          "date": "2017-05-28",
+          "time": "",
+          "address": "Cilandak, South Jakarta City, Jakarta, Indonesia",
+          "coordinate": {
+            "lat": -6.2845276,
+            "lng": 106.8001396
+          },
+          "weather": {
+            "dt": 1495857600,
+            "temp": {
+              "day": 30.17,
+              "min": 28.16,
+              "max": 30.68,
+              "night": 28.16,
+              "eve": 30.31,
+              "morn": 28.31
+            },
+            "pressure": 1022.31,
+            "humidity": 86,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 0.77,
+            "deg": 118,
+            "clouds": 32,
+            "rain": 1.05
           }
         }
-      ],
-      "id": 4
+      ]
     }
   ]
 }
