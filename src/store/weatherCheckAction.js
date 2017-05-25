@@ -11,7 +11,9 @@ import { SET_WEATHERCHECK_LOCATIONS,
     DELETE_SAVED_WEATHER, 
     DELETE_SAVED_WEATHER_SUCCESS,
     DELETE_WEATHER_IN_DETAIL,
-    DELETE_WEATHER_IN_DETAIL_SUCCESS } from './constants';
+    DELETE_WEATHER_IN_DETAIL_SUCCESS,
+    ADD_WEATHER_IN_DETAIL,
+    ADD_WEATHER_IN_DETAIL_SUCCESS } from './constants';
 
 export const setLocation = (response) => {
     return {
@@ -100,6 +102,25 @@ export const deleteWeatherInDetailSuccess = (data) => {
     }
 }
 
+export const addWeatherInDetailSuccess = (data, id) => {
+    console.log('in addWeatherInDetailSuccess')
+    let savedWeathers = (store.getState()).weatherCheckReducer.savedWeathers;
+    let indexToBeUpdated;
+    savedWeathers.map((weather, index) => {
+        if(Number(weather.id) === Number(id)) {
+            indexToBeUpdated = index
+        }
+    });
+    console.log('indexToBeUpdated: ', indexToBeUpdated);
+    console.log('original savedWeathers: ', savedWeathers[indexToBeUpdated]);
+    savedWeathers[indexToBeUpdated].weathers.push(data);
+    console.log('updated savedWeathers: ', savedWeathers[indexToBeUpdated]);
+    return {
+        type: ADD_WEATHER_IN_DETAIL_SUCCESS,
+        payload: savedWeathers
+    }
+}
+
 export const saveWeathers = (data) => {
     console.log('in saveweather action');
     console.log(data);
@@ -176,9 +197,6 @@ export const deleteWeatherInDetail = (data) => {
 }
 
 
-
-
-
 export const fetchWeather = (data) => {
     console.log('in fetchweather');
     let lat = data.coordinate.lat;
@@ -223,3 +241,81 @@ export const searchPlace = (placeTime) => {
     }
 }
 
+
+
+
+export const addWeatherInDetail = (data, id) => {
+    console.log('in addWeatherInDetail action');
+    let port = 4000;
+    let url = `http://localhost:${port}/savedWeathers/${id}`;
+    Axios.get(url)
+            .then((response) => {
+                console.log('in deleteWeatherInDetail first axios')
+                console.log(response.data);
+                response.data.weathers.push(data);
+                let newData = {
+                    createdAt: response.data.createdAt,
+                    id: response.data.id,
+                    title: response.data.title,
+                    weathers: response.data.weathers
+                };
+                Axios.put(url, newData)
+                        .then((response) => {
+                            console.log('in addWeatherInDetail second axios')
+                            store.dispatch(addWeatherInDetailSuccess(data, id));
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+}
+
+
+
+export const fetchWeatherInDetail = (data, id) => {
+    console.log('in fetchweather');
+    let lat = data.coordinate.lat;
+    let lon = data.coordinate.lng;
+    // let urlHourly = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`
+    let urlDaily = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${lat}&lon=${lon}&cnt=16&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`;
+    return dispatch => {
+        return Axios.get(urlDaily)
+            .then((response) => {
+                // data.weathers = response.data.list;
+                let index = Math.round((new Date(data.date) - new Date())/(60*60*24*1000));
+                data.weather = response.data.list[index];
+                dispatch(addWeatherInDetail(data, id))
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+}
+
+export const searchPlaceInDetail = (placeTime, id) => {
+    console.log('in searchPlace');
+    let place = placeTime.place.replace(' ', '%20');
+    let url = `http://maps.googleapis.com/maps/api/geocode/json?address=${place}`
+    return dispatch => {
+        return Axios.get(url)
+        .then((response) => {
+            // console.log(response.data);
+            let data = {
+                name: placeTime.place,
+                date: placeTime.date,
+                time: placeTime.time,
+                address: response.data.results[0].formatted_address,
+                coordinate: response.data.results[0].geometry.location
+            }
+            // dispatch(setLocation(data));
+            dispatch(fetchWeatherInDetail(data, id));
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
+}

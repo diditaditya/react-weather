@@ -8,7 +8,8 @@ import { SET_WEATHERCHECK_LOCATIONS,
     DELETE_SAVED_WEATHER, 
     DELETE_SAVED_WEATHER_SUCCESS,
     DELETE_WEATHER_IN_DETAIL,
-    DELETE_WEATHER_IN_DETAIL_SUCCESS } from './constants';
+    DELETE_WEATHER_IN_DETAIL_SUCCESS,
+    ADD_WEATHER_IN_DETAIL_SUCCESS } from './constants';
 
 const initialState = {
     locations: [],
@@ -49,6 +50,12 @@ const WeatherCheckReducer = (state = initialState, action) => {
             }
         case DELETE_WEATHER_IN_DETAIL_SUCCESS:
             console.log('in deleteWeatherInDetail reducer!');
+            return {
+                ...state,
+                savedWeathers: [...action.payload]
+            }
+        case ADD_WEATHER_IN_DETAIL_SUCCESS:
+            console.log('in addWeatherInDetail reducer!');
             return {
                 ...state,
                 savedWeathers: [...action.payload]

@@ -407,6 +407,74 @@
             "clouds": 32,
             "rain": 1.05
           }
+        },
+        {
+          "name": "Ragunan",
+          "date": "2017-05-28",
+          "address": "Ragunan, Pasar Minggu, South Jakarta City, Jakarta, Indonesia",
+          "coordinate": {
+            "lat": -6.301752,
+            "lng": 106.8207875
+          },
+          "weather": {
+            "dt": 1495857600,
+            "temp": {
+              "day": 27.9,
+              "min": 20.47,
+              "max": 27.9,
+              "night": 22.66,
+              "eve": 24.1,
+              "morn": 20.47
+            },
+            "pressure": 968.29,
+            "humidity": 77,
+            "weather": [
+              {
+                "id": 502,
+                "main": "Rain",
+                "description": "heavy intensity rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 1.22,
+            "deg": 246,
+            "clouds": 24,
+            "rain": 19.57
+          }
+        },
+        {
+          "name": "lebak bulus",
+          "date": "2017-05-28",
+          "address": "Lebak Bulus, Cilandak, South Jakarta City, Jakarta, Indonesia",
+          "coordinate": {
+            "lat": -6.3031123,
+            "lng": 106.7794935
+          },
+          "weather": {
+            "dt": 1495857600,
+            "temp": {
+              "day": 27.9,
+              "min": 20.47,
+              "max": 27.9,
+              "night": 22.66,
+              "eve": 24.1,
+              "morn": 20.47
+            },
+            "pressure": 968.29,
+            "humidity": 77,
+            "weather": [
+              {
+                "id": 502,
+                "main": "Rain",
+                "description": "heavy intensity rain",
+                "icon": "10d"
+              }
+            ],
+            "speed": 1.22,
+            "deg": 246,
+            "clouds": 24,
+            "rain": 19.57
+          }
         }
       ]
     }

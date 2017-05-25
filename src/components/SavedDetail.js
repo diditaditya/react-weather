@@ -1,15 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { deleteWeatherInDetail } from '../store/weatherCheckAction';
+import { searchPlaceInDetail, deleteWeatherInDetail } from '../store/weatherCheckAction';
 
 class SavedDetail extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            data: ''
-        }
+            data: '',
+            place: '',
+            date: ''
+        };
+        this.style = {
+            inputFormStyle: {
+                borderRadius: 5,
+                marginTop: '25px',
+                marginRight: '50px'
+            }
+        };
+        this.today = new Date();
+        this.newDate = new Date();
+        this.maxDate = new Date(this.newDate.setDate(this.newDate.getDate() + 16));
     }
 
     convertDate(oriDate) {
@@ -50,16 +62,52 @@ class SavedDetail extends React.Component {
         }
     }
 
+    placeHandleChange(place) {
+        this.setState({
+            place: place
+        });
+    }
+
+    dateHandleChange(date) {
+        this.setState({
+            date: date
+        });
+    }
+
+    search(id) {
+        let data = {
+            place: this.state.place,
+            date: this.state.date,
+            time: this.state.time,
+        };
+        this.props.search(data, id);
+        this.setState({
+            place: ''
+        });
+    }
+
     render() {
         if(this.props.savedWeathers) {
             if(this.props.savedWeathers.length > 0) {
                 let id = this.props.match.params.id;
                 let data = this.setDataToLocalState(this.props.savedWeathers);
-                console.log('data: ', data);
+                let minDate = this.convertDate(this.today);
+                let maxDate = this.convertDate(this.maxDate);
                 return (
                     <div className="container" >
-                        <h3>{ data.title }</h3>
-                        <p>Created at: { this.convertDate(data.createdAt) }</p>
+                        <div className="row">
+                            <div className="col-md-4 col-sm-4 col-xs-4" >
+                                <h3>{ data.title }</h3>
+                                <p>Created at: { this.convertDate(data.createdAt) }</p>
+                            </div>
+                            <div className="col-md-8 col-sm-8 col-xs-8">
+                                <input value={this.state.place} onChange={ (e) => this.placeHandleChange(e.target.value)} type="text" placeholder="City name" style={this.style.inputFormStyle} />
+                                <input value={this.state.date} onChange={ (e) => this.dateHandleChange(e.target.value)} type="date" min={minDate} max={maxDate}  style={this.style.inputFormStyle}/>
+                                {/*<input type="time" style={this.style.inputFormStyle}/>*/}
+                                <button onClick={ this.search.bind(this, id) }  className="btn btn-primary">Check and Add to List!</button>
+                            </div>
+                        </div>
+                        
                         <table className="table" >
                             <thead>
                                 <tr>
@@ -118,7 +166,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return ({
-        deleteWeather: (data) => dispatch(deleteWeatherInDetail(data))
+        deleteWeather: (data) => dispatch(deleteWeatherInDetail(data)),
+        search: (placeTime, id) => dispatch(searchPlaceInDetail(placeTime, id)),
     });
 }
 
