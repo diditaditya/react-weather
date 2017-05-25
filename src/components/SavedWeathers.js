@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { fetchSavedWeathers, deleteSavedWeather } from '../store/weatherCheckAction';
@@ -49,7 +50,7 @@ class SavedWeathers extends React.Component {
                                             <td className="text-capitalize">{saved.title}</td>
                                             <td>{ this.convertDate(saved.createdAt) }</td>
                                             <td>
-                                                <button className="btn btn-default">Detail</button>
+                                                <Link to={"/savedweathers/" + saved.id} ><button className="btn btn-default">Detail</button></Link>
                                                 <span> </span>
                                                 <button onClick={this.delete.bind(this, saved)} className="btn btn-danger">Delete</button>
                                             </td>

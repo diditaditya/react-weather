@@ -4,6 +4,7 @@ import {Route, Link} from 'react-router-dom';
 import WeatherList from './WeatherList';
 import WeatherCheck from './WeatherCheck';
 import SavedWeathers from './SavedWeathers';
+import SavedDetail from './SavedDetail';
 
 class ViewBody extends React.Component {
 
@@ -20,7 +21,8 @@ class ViewBody extends React.Component {
                 
                 <Route path="/" component={WeatherList} />
                 <Route path="/weatherchecker" component={WeatherCheck} />
-                <Route path="/savedweathers" component={SavedWeathers} />
+                <Route exact path="/savedweathers" component={SavedWeathers} />
+                <Route path="/savedweathers/:id" component={SavedDetail} />
             </div>
         );
     }

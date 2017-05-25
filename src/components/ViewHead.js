@@ -12,7 +12,8 @@ class ViewHead extends React.Component {
                 <Route exact path="/" component={City} />
                 <Route path="/daily" component={City} />
                 <Route path="/weatherchecker" component={CheckerHead} />
-                <Route path="/savedweathers" component={CheckerHead} />
+                <Route exact path="/savedweathers" component={CheckerHead} />
+                <Route path="/savedweathers/:id" component={CheckerHead} />
             </div>
         );
     }
