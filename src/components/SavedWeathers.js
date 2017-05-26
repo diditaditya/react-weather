@@ -6,6 +6,22 @@ import { fetchSavedWeathers, deleteSavedWeather } from '../store/weatherCheckAct
 
 class SavedWeathers extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.style = {
+            inputFormStyle: {
+                borderRadius: 5,
+                marginTop: '25px',
+                marginRight: '50px'
+            }
+        };
+        this.state = {
+            savedWeathers: [],
+            searchString: '',
+            searchMessage: ''
+        }
+    }
+
     convertDate(oriDate) {
         let fullDate = new Date(oriDate);
         let year = fullDate.getFullYear();
@@ -26,14 +42,86 @@ class SavedWeathers extends React.Component {
         }
     }
 
+    searchStringHandleChange(string) {
+        this.setState({
+            searchString: string
+        });        
+    }
+
+    search() {
+
+        if(this.state.searchString.length > 0) {
+            console.log(this.state.searchString);
+            let pattern = new RegExp(this.state.searchString);
+            let filtered = [];
+            this.state.savedWeathers.map((item) => {
+                item.weathers.map((weather) => {
+                    if(pattern.test(weather.name.toLowerCase()) || pattern.test(weather.address.toLowerCase()) || pattern.test(item.title.toLowerCase())  ) {
+                        if(filtered.length !== 0) {
+                            let found = 0;
+                            filtered.map((pushed) => {
+                                if(pushed.title === item.title) {
+                                    found ++;
+                                }
+                            });
+                            if(found === 0) {
+                                filtered.push(item);
+                            }
+                        } else {
+                            filtered.push(item);
+                        }
+                    }
+                });
+            });
+            if(filtered.length > 0) {
+                this.setState({
+                    searchString: '',
+                    savedWeathers: filtered,
+                    searchMessage: ''
+                });
+            } else {
+                this.setState({
+                    searchMessage: 'Keyword is not found in the lists'
+                });
+            }
+        }
+        
+    }
+
+    showAll() {
+        this.setState({
+            savedWeathers: this.props.savedWeathers,
+            searchMessage: ''
+        });
+    }
+
     render() {
         if(this.props.savedWeathers) {
-            if(this.props.savedWeathers.length > 0) {
-                console.log(this.props.savedWeathers);
+            if(this.state.savedWeathers.length > 0) {
                 return (
                     <div className="container" style={{marginTop: 25}}>
-                        <h3>Saved Weathers</h3>
-                        <table className="table" >
+                        <div style={{height: 100}}>
+                            <div className="row">
+                                <div className="col-md-4 col-sm-4 col-xs-4" >
+                                    <h3>Saved Weathers</h3>
+                                </div>
+                                <div className="col-md-8 col-sm-8 col-xs-8">
+                                    <div className="row">
+                                        <input value={this.state.searchString} onChange={ (e) => this.searchStringHandleChange(e.target.value)} type="text" placeholder="Keyword" style={this.style.inputFormStyle} />
+                                        <button onClick={ this.search.bind(this) }  className="btn btn-primary">Search</button>
+                                        <span> </span>
+                                        <button onClick={ this.showAll.bind(this) }  className="btn btn-primary">Show All</button>
+                                    </div>
+                                    <div className="row" >
+                                        <span>{ this.state.searchMessage }</span>
+                                    </div>                                    
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <table className="table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -43,7 +131,7 @@ class SavedWeathers extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                { this.props.savedWeathers.map((saved, index) => {
+                                { this.state.savedWeathers.map((saved, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>{index +1}</td>
@@ -80,6 +168,16 @@ class SavedWeathers extends React.Component {
 
     componentDidMount() {
         this.props.fetchSavedWeathers();
+    }
+
+    componentDidUpdate() {
+        if(this.props.savedWeathers) {
+            if(this.state.savedWeathers.length === 0) {
+                this.setState({
+                    savedWeathers: this.props.savedWeathers
+                });
+            }
+        }
     }
 
 }

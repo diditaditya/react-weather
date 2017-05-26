@@ -8,7 +8,7 @@ class SavedDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: '',
+            savedWeathers: null,
             place: '',
             date: ''
         };
@@ -127,7 +127,7 @@ class SavedDetail extends React.Component {
                                             <td>{weather.date}</td>
                                             <td>{weather.weather.weather[0].description}</td>
                                             <td>
-                                                <button className="btn btn-default">Edit</button>
+                                                {/*<button className="btn btn-default">Edit</button>*/}
                                                 <span> </span>
                                                 <button onClick={this.delete.bind(this, index, id)} className="btn btn-danger">Delete</button>
                                             </td>
@@ -155,10 +155,25 @@ class SavedDetail extends React.Component {
         
     }
 
+    componentDidUpdate() {
+        if(this.props.savedWeathers) {
+            let selectedIndex;
+            this.props.savedWeathers.map((weather, index) => {
+                if(Number(this.props.match.params.id) === Number(weather.id)) {
+                    selectedIndex = index;
+                }
+            });
+            if(this.state.savedWeathers === null) {
+                this.setState({
+                    savedWeathers: this.props.savedWeathers[selectedIndex]
+                });
+            }
+        }   
+    }
+
 }
 
 const mapStateToProps = (state) => {
-    console.log('state.weatherCheckReducer: ', state.weatherCheckReducer);
     return ({
         savedWeathers: state.weatherCheckReducer.savedWeathers
     });

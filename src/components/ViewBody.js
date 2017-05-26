@@ -15,7 +15,7 @@ class ViewBody extends React.Component {
                     <Link to="/"><button className="btn btn-primary">3-Hourly</button></Link>
                     <span> </span>
                     <Link to="/daily"><button className="btn btn-primary">Daily</button></Link>
-                    <Link to="/weatherchecker"><button className="btn btn-warning" style={{float:'right', marginLeft: 5}} >Daily Weather Checker</button></Link>
+                    <Link to="/weatherchecker"><button className="btn btn-warning" style={{float:'right', marginLeft: 5}} >Add New Weather List</button></Link>
                     <Link to="/savedweathers"><button className="btn btn-warning" style={{float:'right'}} >Saved Weathers</button></Link>
                 </div>
                 

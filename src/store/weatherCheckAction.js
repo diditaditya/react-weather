@@ -250,7 +250,7 @@ export const addWeatherInDetail = (data, id) => {
     let url = `http://localhost:${port}/savedWeathers/${id}`;
     Axios.get(url)
             .then((response) => {
-                console.log('in deleteWeatherInDetail first axios')
+                console.log('in addWeatherInDetail first axios')
                 console.log(response.data);
                 response.data.weathers.push(data);
                 let newData = {
